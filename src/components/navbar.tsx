@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import ModeToggle from './mode-toggle'
 import { createClient } from '@/utils/supabase/client'
 import { logout } from '@/app/api/auth/action'
-import ErrorMessage from './errorMessage'
+import { redirect } from 'next/navigation'
 
 function Navbar() {
 
@@ -25,7 +25,7 @@ function Navbar() {
 
   return (
     <nav className="border-b">
-      <ErrorMessage context='login'/>
+      {/* <ErrorMessage context='login'/> */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between">
           <Link href="/" className="flex items-center text-xl font-bold gap-2">

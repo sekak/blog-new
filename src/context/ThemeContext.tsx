@@ -1,5 +1,5 @@
 "use client";
-import { PropsTheme, ThemeProviderProps } from "@/types/context";
+import { PropsTheme, ProviderProps } from "@/types/context";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext<PropsTheme | null>(null);
@@ -11,7 +11,7 @@ export const useContextTheme = () => {
   return context;
 };
 
-export const ThemeContextProvider = ({ children }: ThemeProviderProps) => {
+export const ThemeContextProvider = ({ children }: ProviderProps) => {
   const [mode, setMode] = useState<string>(
     typeof window !== 'undefined' ?
       localStorage.getItem("theme") || "light" : "light"

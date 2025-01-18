@@ -5,20 +5,19 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import { setError } from '@/utils/errorCache'
+import { DataForm } from '@/types/global'
 
-export async function login(formData: FormData) {
+export async function login(data:DataForm) {
   const supabase = await createClient()
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const form = {
+    email: data.email,
+    password: data.password
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
-  if (error) {
-    setError('login', error)
-    return
-  }
-
+  const { error } = await supabase.auth.signInWithPassword(form)
+  if (error)
+    throw new Error(error.code)
+  
   revalidatePath('/', 'layout')
   redirect('/')
 }

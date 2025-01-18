@@ -3,6 +3,6 @@ export interface PropsTheme {
   setMode: React.Dispatch<SetStateAction<string>>;
 }
 
-export interface ThemeProviderProps {
+export interface ProviderProps {
   children: React.ReactNode;
 }

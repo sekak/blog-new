@@ -12,3 +12,9 @@ export interface CommentListProps {
   content: string;
   date: string;
 }
+
+export interface DataForm { 
+  email: string
+  password: string
+  fullname?: string
+}
