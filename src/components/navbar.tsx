@@ -2,26 +2,32 @@
 import { Button } from '@radix-ui/themes'
 import { BookOpen, Home, LogIn, LogOut, Pen, UserPlus2 } from 'lucide-react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ModeToggle from './mode-toggle'
 import { createClient } from '@/utils/supabase/client'
 import { logout } from '@/app/api/auth/action'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 function Navbar() {
-
   const [user, setUser] = useState<any>(null)
-
   const supabase = createClient()
 
-  supabase.auth.onAuthStateChange((event, session) => {
-    if (session) {
-      setUser(session?.user)
-    }
-    if (!session) {
-      setUser(null)
-    }
-  })
+  useEffect(()=>{
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        setUser(session?.user)
+      }
+      if (!session) {
+        setUser(null)
+      }
+    })
+  },[])
+
+  const handleClickLogout = async () => {
+    await logout()
+    window.location.reload()
+  }
 
   return (
     <nav className="border-b">
@@ -59,7 +65,7 @@ function Navbar() {
                 </Link>
                 <Link href='/'>
                   <Button
-                    onClick={logout}
+                    onClick={handleClickLogout}
                     size={"4"}
                     variant="ghost"
                     color="gray"

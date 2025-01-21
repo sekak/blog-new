@@ -1,31 +1,34 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import CommentForm from "./comment-form";
 import CommentList from "./comment-list";
-import { CommentListProps } from "@/types/global";
+import { createClient } from "@/utils/supabase/client";
+import { usePathname } from 'next/navigation'
 
 export default function Comments() {
-  const [comments, setComments] = React.useState<CommentListProps[]>([
-    {
-      id: "1",
-      author: "Alice Johnson",
-      content: "Great article! Very informative.",
-      date: "2024-03-21",
-    },
-    {
-      id: "2",
-      author: "Bob Smith",
-      content: "Thanks for sharing this knowledge.",
-      date: "2024-03-20",
-    },
-  ]);
-
+  const path = usePathname()
+  const postId = path.split('/')[2]
+  const supabase = createClient();
+  const [comments, setComments] = React.useState<any>();
+  useEffect(() => {
+    const fetchComments = async () => {
+      const { data: comments, error } = await supabase.from("comment").select("*").eq("post_id", postId);
+      if (error) {
+        console.log("Error fetching comments", error);
+        setComments([]);
+      }
+      setComments(comments);
+    };
+    fetchComments()
+  }, []);
+    
   const handleAddComment = async (comment: string) => {
     const newComment = {
       content: comment,
       author: "Anonymous",
-      date: new Date().toISOString(),
-      id: Math.random().toString(),
+      created_at: new Date().toISOString(),
+      post_id: postId,
+      // user_id: 
     };
 
     await setComments([newComment, ...comments]);

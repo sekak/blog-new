@@ -19,7 +19,6 @@ export async function login(data:DataForm) {
     throw new Error(error.code)
   
   revalidatePath('/', 'layout')
-  redirect('/')
 }
 
 export async function signup(formData: FormData) {
@@ -44,5 +43,4 @@ export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
   revalidatePath('/', 'layout')
-  redirect('/login')
 }

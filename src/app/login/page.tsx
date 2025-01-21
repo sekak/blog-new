@@ -28,6 +28,7 @@ export default function Page() {
     try {
       await login(form);
       toast.success('Login successful!', { hideProgressBar: true });
+      window.location.reload()
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : String(err);
       toast.error(errorMessage || 'An unexpected error occurred.', { hideProgressBar: true });
