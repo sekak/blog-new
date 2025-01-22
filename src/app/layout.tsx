@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import { Theme } from "@radix-ui/themes";
 import Footer from "@/components/footer";
 import { SessionProvider } from "@/context/Session";
+import { ToastContainer } from "react-toastify";
 // import AuthProvider from "@/provider/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,6 +37,11 @@ export default function RootLayout({
               <Theme>
                 <div className="bg-background">
                   <Navbar />
+                  <ToastContainer
+                    className='mt-14'
+                    hideProgressBar={true}
+                    theme={'dark'}
+                  />                  
                   {children}
                   <Footer />
                 </div>

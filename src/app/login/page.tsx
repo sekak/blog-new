@@ -70,10 +70,6 @@ export default function Page() {
 
   return <div className="relative mx-auto max-w-md py-28 px-3">
     <div className="border rounded-lg flex flex-col p-8 relative overflow-hidden">
-      <ToastContainer
-        className='mt-14'
-        theme={'dark'}
-      />
       <div className="mb-5">
         <h1 className="font-bold text-2xl mb-1">Login</h1>
         <p className="text-muted-foreground text-sm">

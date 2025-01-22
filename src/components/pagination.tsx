@@ -79,7 +79,6 @@ export default function PaginationComponent({
 
       {currentPage < numberOfPages - 2 && (
           <>
-            <PaginationEllipsis />
             <PaginationItem>
               <PaginationLink onClick={() => setCurrentPage(numberOfPages)}>
                 {numberOfPages}
