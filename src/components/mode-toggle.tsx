@@ -11,15 +11,18 @@ export default function ModeToggle() {
     else setTheme("light");
   };
   return (
-    <Button
-      onClick={handleClick}
-      size={"3"}
-      variant="ghost"
-      color="gray"
-      className="p-2"
-    >
-      <Sun className="dark:flex hidden h-5 w-5" />
-      <Moon className="dark:hidden h-5 w-5" />
-    </Button>
+    <div className="mx-4">
+
+      <Button
+        onClick={handleClick}
+        size={"3"}
+        variant="ghost"
+        color="gray"
+        className="p-2 rounded-full"
+      >
+        <Sun className="dark:flex hidden h-5 w-5" />
+        <Moon className="dark:hidden h-5 w-5" />
+      </Button>
+    </div>
   );
 }

@@ -1,17 +1,23 @@
 'use client'
-import { Button } from '@radix-ui/themes'
-import { BookOpen, Home, LogIn, LogOut, Pen, UserPlus2 } from 'lucide-react'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import ModeToggle from './mode-toggle'
-import { createClient } from '@/utils/supabase/client'
-import { logout } from '@/app/api/auth/action'
+import { logout } from "@/app/api/auth/action";
+import { createClient } from "@/utils/supabase/client";
+import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, DropdownMenu, DropdownTrigger, Dropdown, Avatar, DropdownItem } from "@heroui/react";
+import { BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+import ModeToggle from "./mode-toggle";
 
-function Navbar() {
+
+const menuItems = [
+  "Home",
+  "Write",
+  "Contact"
+];
+
+export default function Navbar() {
   const [user, setUser] = useState<any>(null)
   const supabase = createClient()
 
-  useEffect(()=>{
+  useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         setUser(session?.user)
@@ -20,92 +26,99 @@ function Navbar() {
         setUser(null)
       }
     })
-  },[])
+  }, [])
 
   const handleClickLogout = async () => {
     await logout()
     window.location.reload()
   }
-
+  
   return (
-    <nav className="border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex justify-between">
-          <Link href="/" className="flex items-center text-xl font-bold gap-2">
-            <BookOpen />
-            Med Blog
+    <Nav isBlurred className="gap-6" maxWidth={'xl'}>
+      <NavbarBrand className="flex items-center">
+        <NavbarMenuToggle className="sm:hidden p-2 mr-3"/>
+        <Link href="/" color="foreground" size="lg">
+          <BookOpen className="mr-2"/>
+          Med Blog
+        </Link>
+      </NavbarBrand>
+      {user && <NavbarContent className="hidden sm:flex gap-10" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="/">
+            Home
           </Link>
-          <div className="flex items-center space-x-10">
-            {user && (
-              <>
-                <Link href="/">
-                  <Button
-                    size={"4"}
-                    variant="ghost"
-                    color="gray"
-                    className="btn-nav p-3"
-                  >
-                    <Home className="h-4 w-4" />
-                    Home
-                  </Button>
-                </Link>
-                <Link href="/write">
-                  <Button
-                    size={"4"}
-                    variant="ghost"
-                    color="gray"
-                    className="btn-nav p-3"
-                  >
-                    <Pen className="h-4 w-4" />
-                    Write
-                  </Button>
-                </Link>
-                <Link href='/'>
-                  <Button
-                    onClick={handleClickLogout}
-                    size={"4"}
-                    variant="ghost"
-                    color="gray"
-                    className="btn-nav p-3"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Logout
-                  </Button>
-                </Link>
-              </>
-            )}
-            {!user && (
-              <>
-                <Link href="/login">
-                  <Button
-                    size={"4"}
-                    variant="ghost"
-                    color="gray"
-                    className="btn-nav p-3"
-                  >
-                    <LogIn className="h-4 w-4" />
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/signup">
-                  <Button
-                    size={"4"}
-                    variant="ghost"
-                    color="gray"
-                    className="btn-nav p-3"
-                  >
-                    <UserPlus2 className="h-4 w-4" />
-                    Sign up
-                  </Button>
-                </Link>
-              </>
-            )}
-            <ModeToggle />
-          </div>
-        </div>
-      </div>
-    </nav>
-  )
+        </NavbarItem>
+        <NavbarItem >
+          <Link aria-current="page" href="/write">
+            Write
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/contact">
+            Contact
+          </Link>
+        </NavbarItem>
+      </NavbarContent>}
+      <NavbarContent justify="end">
+        {!user ?
+          <>
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/login">Login</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button as={Link} color="primary" href="#" variant="flat">
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </> 
+          :
+          <NavbarContent as="div" justify="end">
+        <Dropdown placement="bottom-end">
+          <DropdownTrigger>
+            <Avatar
+              isBordered
+              as="button"
+              className="transition-transform"
+              color="secondary"
+              name="Jason Hughes"
+              size="sm"
+              src={user.
+                user_metadata
+                 ? user.
+                 user_metadata.picture
+                  :"https://i.pravatar.cc/150?u=a042581f4e29026704d"}
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Profile Actions" variant="flat">
+            <DropdownItem key="profile" className="h-14 gap-2">
+              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">{user?.email}</p>
+            </DropdownItem>
+            <DropdownItem key="logout" color="danger" onClick={handleClickLogout}>
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
+        }
+      </NavbarContent>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              className="w-full"
+              color={
+                index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
+              }
+              href={`/${item.toLocaleLowerCase()}`}
+              size="lg"
+            >
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+        <ModeToggle/>
+    </Nav>
+  );
 }
-
-export default Navbar
