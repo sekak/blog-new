@@ -2,41 +2,67 @@
 import React, { useEffect } from "react";
 import CommentForm from "./comment-form";
 import CommentList from "./comment-list";
-import { createClient } from "@/utils/supabase/client";
-import { usePathname } from 'next/navigation'
+import useSWR, { mutate } from "swr";
+import Error from "next/error";
 
-export default function Comments() {
-  const path = usePathname()
-  const postId = path.split('/')[2]
-  const supabase = createClient();
-  const [comments, setComments] = React.useState<any>();
-  useEffect(() => {
-    const fetchComments = async () => {
-      const { data: comments, error } = await supabase.from("comment").select("*").eq("post_id", postId);
-      if (error) {
-        console.log("Error fetching comments", error);
-        setComments([]);
-      }
-      setComments(comments);
-    };
-    fetchComments()
-  }, []);
-    
-  const handleAddComment = async (comment: string) => {
+export default function Comments({id}:{id:string}) {
+  const postId = id
+
+  const fetcher = async (url: string) => {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(data.error || 'An error occurred while fetching the data.');
+      (error as any).status = response.status;
+      throw { error };
+    }
+    return data
+  }
+  const { data, error, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher,{
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  })
+  const { data:user } = useSWR('/api/users?', fetcher,{
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  });
+
+  const sendData = async (url:string, { arg }) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(arg),
+    });
+    return response.json();
+  };
+
+
+    const handleAddComment = async (comment: string) => {
     const newComment = {
       content: comment,
       author: "Anonymous",
       created_at: new Date().toISOString(),
       post_id: postId,
-      // user_id: 
+      user_id: user.id
     };
 
-    await setComments([newComment, ...comments]);
+    await sendData(`/api/comments?post_id=${postId}`, { arg: newComment });
+    mutate(`/api/comments?post_id=${postId}`);
   };
+
+  if(error && error.status != 200)
+    return <Error statusCode={error?.status}/>
+
+  console.log(data,error)
   return (
     <div className="mt-8 space-y-8">
       <CommentForm handleAddComment={handleAddComment} />
-      <CommentList comments={comments} />
+      <CommentList comments={data} />
     </div>
   );
 }

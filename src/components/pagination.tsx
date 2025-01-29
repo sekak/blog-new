@@ -23,7 +23,6 @@ export default function PaginationComponent({
   countPage,
   numberOfPages,
 }: PaginationProps) {
-  const maxPages = 5;
 
   const pageNumbers = [];
   for (let i = 1; i <= numberOfPages; i++) {

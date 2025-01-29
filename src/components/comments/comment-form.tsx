@@ -13,9 +13,9 @@ export default function CommentForm(props: props) {
   const [error, setError] = React.useState<string>('');
   const textareRef = React.useRef<HTMLTextAreaElement>(null);
   const handleClickSendComment = async () => {
-    setIsSend(true);
+    // setIsSend(true);
     if (comment) {
-      await props.handleAddComment(comment);
+      props.handleAddComment(comment);
       setComment("");
       setError('');
     }
@@ -23,7 +23,7 @@ export default function CommentForm(props: props) {
       textareRef.current?.focus();
       setError('Please write a comment');
     }
-    setIsSend(false);
+    // setIsSend(false);
   };
   return (
     <div className="space-y-3">

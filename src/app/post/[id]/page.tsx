@@ -1,16 +1,14 @@
+'use server'
 import Comments from "@/components/comments/comments";
 import { Suspense, lazy } from "react";
-const PostComment = lazy(() => import("@/components/post/post"));
-import SkeletonCard from "@/components/skeleton";
+import SkeletonCard from "@/components/skeleton/skeleton";
+import PostComment from "@/components/posts/postComment";
 
-async function page({params}) {
+async function page({ params }: { params: { id: string } }) {
   
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
-      <Suspense fallback={<SkeletonCard count={1}/>}>
-          <PostComment params={params} />
-      </Suspense>
-      <Comments params={params}/>
+      <PostComment id={params.id}/>
     </div>
   );
 }

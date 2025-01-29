@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -8,12 +8,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { PostProps } from "@/types/auth";
+import PostCard from "./content/post_card";
 
-export default function PostCard({ posts }: { posts: PostProps[] | null }) {
+export default function PostsCard({ posts }: { posts: PostProps[] | null }) {
+
   return (
     <>
       {posts?.map((post) => (
-        <Card key={post.id} className="overflow-hidden w-full">
+        <Card key={post.id} className="overflow-hidden w-full flex flex-col justify-between">
           <div className="relative h-48">
             <Image
               src={post.image}
@@ -33,8 +35,7 @@ export default function PostCard({ posts }: { posts: PostProps[] | null }) {
             </p>
           </CardContent>
           <CardFooter className="text-sm px-6 pb-6 text-muted-foreground border-none flex items-center justify-between">
-            {/* <span>{post.name}</span> */}
-            <time>{new Date().toLocaleDateString()}</time>
+            <PostCard user_id={post?.user_id} />
           </CardFooter>
         </Card>
       ))

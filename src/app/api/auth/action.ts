@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import { setError } from '@/utils/errorCache'
 import { DataForm } from '@/types/global'
 
 export async function login(data:DataForm) {
@@ -29,11 +28,6 @@ export async function signup(formData: FormData) {
   }
 
   const { error } = await supabase.auth.signUp(data)
-
-  if (error) {
-    setError('signup', error)
-    return
-  }
 
   revalidatePath('/', 'layout')
   redirect('/')
