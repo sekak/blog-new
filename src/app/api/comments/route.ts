@@ -30,8 +30,8 @@ export async function GET(req: Request) {
 
     if (!data || data.length === 0) {
       return NextResponse.json(
-        { error: "Comments not found" },
-        { status: 404 }
+        data,
+        { status: 200 }
       );
     }
 

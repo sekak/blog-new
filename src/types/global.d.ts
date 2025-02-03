@@ -10,3 +10,13 @@ export interface DataForm {
   password: string
   fullname?: string
 }
+
+export interface CommentsProps{
+  author: string
+  content: string
+  created_at: string
+  id?: string
+  image?: string
+  post_id: string
+  user_id: string
+}

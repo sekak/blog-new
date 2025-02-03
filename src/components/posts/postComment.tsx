@@ -1,16 +1,12 @@
 'use client'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
 import Image from "next/image";
 import useSWR from "swr";
 import SkeletonCard from "../skeleton/skeleton";
-import PostCard from "./content/post_card";
-import Error from "next/error";
 import Comments from "../comments/comments";
+import Error from "next/error";
 import SkeletonComments from "../skeleton/skeleton_comments";
+import { Card, CardBody, CardHeader } from "@heroui/react";
+import UserCard from "./content/user";
 
 
 export default function PostComment({ id }: { id: string }) {
@@ -40,24 +36,24 @@ export default function PostComment({ id }: { id: string }) {
     <>
     {!isLoading ?
       <>
-      <Card className="overflow-hidden w-full">
-          <div className="relative h-[400px]">
+      <Card className="overflow-hidden w-full bg-background">
+          <div className="relative overflow-hidden  h-[400px]">
             <Image
               src={data?.image ? data?.image : `https://avatar.vercel.sh/John%20Doe`}
               alt="Med Blog"
-              className="object-cover"
+              className="object-cover transition-all hover:scale-110"
               fill
               />
           </div>
-          <CardHeader>
+          <CardHeader className="mt-4">
             <h3 className="text-3xl font-semibold">
               {data?.title}
             </h3>
           </CardHeader>
-          <CardContent className="mt-6">
-            <PostCard user_id={data.user_id} />
-            <p className="text-base text-foreground mt-2">{data?.description}</p>
-          </CardContent>
+          <CardBody className="">
+            <p className="text-base text-foreground mb-6">{data?.description}</p>
+            <UserCard user_id={data.user_id} />
+          </CardBody>
           </Card>
           <Comments id={id}/>
         </>

@@ -4,8 +4,9 @@ import CommentForm from "./comment-form";
 import CommentList from "./comment-list";
 import useSWR, { mutate } from "swr";
 import Error from "next/error";
+import { CommentsProps } from "@/types/global";
 
-export default function Comments({id}:{id:string}) {
+export default function Comments({ id }: { id: string }) {
   const postId = id
 
   const fetcher = async (url: string) => {
@@ -19,18 +20,14 @@ export default function Comments({id}:{id:string}) {
     }
     return data
   }
-  const { data, error, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher,{
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  })
-  const { data:user } = useSWR('/api/users?', fetcher,{
+  const { data, error, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher)
+  const { data: user } = useSWR('/api/users?', fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
 
-  const sendData = async (url:string, { arg }) => {
+  const sendData = async (url: string, { arg }: { arg: CommentsProps }) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -42,8 +39,8 @@ export default function Comments({id}:{id:string}) {
   };
 
 
-    const handleAddComment = async (comment: string) => {
-    const newComment = {
+  const handleAddComment = async (comment: string) => {
+    const newComment: CommentsProps = {
       content: comment,
       author: "Anonymous",
       created_at: new Date().toISOString(),
@@ -55,10 +52,6 @@ export default function Comments({id}:{id:string}) {
     mutate(`/api/comments?post_id=${postId}`);
   };
 
-  if(error && error.status != 200)
-    return <Error statusCode={error?.status}/>
-
-  console.log(data,error)
   return (
     <div className="mt-8 space-y-8">
       <CommentForm handleAddComment={handleAddComment} />

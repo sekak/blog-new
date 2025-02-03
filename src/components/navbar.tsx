@@ -2,15 +2,16 @@
 import { logout } from "@/app/api/auth/action";
 import {
   Navbar as Nav, NavbarBrand, NavbarContent,
-  NavbarItem, Link, Button, NavbarMenu, NavbarMenuItem,
+  NavbarItem, Button, NavbarMenu, NavbarMenuItem,
   NavbarMenuToggle, DropdownMenu, DropdownTrigger,
   Dropdown, Avatar, DropdownItem,
   Skeleton
 } from "@heroui/react";
 import { BookOpen, LogOut } from "lucide-react";
-import { useEffect, useState } from "react";
 import ModeToggle from "./mode-toggle";
-import { getCurrentUser, getUser } from "@/app/requests/hooks/getUsers";
+import useSWR from "swr";
+import { fetcher } from "@/utils/utils";
+import Link from "next/link";
 
 
 const menuItems = [
@@ -20,34 +21,24 @@ const menuItems = [
 ];
 
 export default function Navbar() {
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    const fetch = async () => {
-      setLoading(true)
-      const user = await getCurrentUser()
-      setUser(user)
-      setLoading(false)
-    }
-    fetch()
-  }, [])
 
   const handleClickLogout = async () => {
     await logout()
     window.location.reload()
   }
 
+  const { data, isLoading } = useSWR(`/api/users`, fetcher);
+
   return (
-    <Nav isBlurred className="gap-6" maxWidth={'xl'}>
+    <Nav isBlurred className="gap-6" maxWidth={'xl'} isBordered>
       <NavbarBrand className="flex items-center">
         <NavbarMenuToggle className="sm:hidden p-2 mr-3" />
-        <Link href="/" color="foreground" size="lg">
+        <Link href="/" color="foreground" className="flex items-center">
           <BookOpen className="mr-2 hidden sm:flex" />
           Med Blog
         </Link>
       </NavbarBrand>
-      {user && !loading ?
+      {data && !isLoading &&
         <NavbarContent className="hidden sm:flex gap-10" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/">
@@ -64,34 +55,9 @@ export default function Navbar() {
               Contact
             </Link>
           </NavbarItem>
-        </NavbarContent>
-        :
-        <NavbarContent className="hidden sm:flex gap-10" justify="center">
-          <NavbarItem>
-            <Skeleton className="w-16 h-6 rounded-lg" />
-          </NavbarItem>
-          <NavbarItem >
-            <Skeleton className="w-16 h-6 rounded-lg" />
-          </NavbarItem>
-          <NavbarItem>
-            <Skeleton className="w-16 h-6 rounded-lg" />
-          </NavbarItem>
-        </NavbarContent>
-      }
+        </NavbarContent> }
       <NavbarContent justify="end">
-        {!user && !loading ?
-          <div className="flex gap-4 items-center">
-            <NavbarItem>
-              <Link href="/login">Login</Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Button as={Link} color="primary" href="#" variant="flat">
-                Sign Up
-              </Button>
-            </NavbarItem>
-            <ModeToggle isLogged={false} />
-          </div>
-          :
+        {data &&
           <NavbarContent as="div" justify="end">
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
@@ -101,15 +67,15 @@ export default function Navbar() {
                   className="transition-transform"
                   color="secondary"
                   size="sm"
-                  src={user?.user_metadata.avatar_url
-                    ? user?.user_metadata.avatar_url
-                    : `https://avatar.vercel.sh/${user?.email}`}
+                  src={data?.avatar_url
+                    ? data?.avatar_url
+                    : `https://avatar.vercel.sh/${data?.email}`}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Signed in as</p>
-                  <p className="font-light">{user?.email}</p>
+                  <p className="font-light">{data?.email}</p>
                 </DropdownItem>
                 <DropdownItem key='mode'>
                   <div className="flex items-center">
@@ -136,7 +102,6 @@ export default function Navbar() {
                 index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
               }
               href={`/${item.toLocaleLowerCase()}`}
-              size="lg"
             >
               {item}
             </Link>

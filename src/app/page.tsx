@@ -1,6 +1,6 @@
 'use client'
 import Pagination from "@/components/pagination";
-import PostsCard from "@/components/posts/posts_card";
+import PostsCard from "@/components/posts/cards";
 import SkeletonCard from "@/components/skeleton/skeleton";
 import { useEffect, useMemo, useState } from "react";
 import useSWR from 'swr';
