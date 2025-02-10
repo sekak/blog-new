@@ -1,8 +1,8 @@
-'use client'
+'use server'
 import AuthWithProvider from "@/components/auth/AuthWithProvider";
-import FormLogin from "@/components/auth/login/form";
+import Login from "@/components/auth/login/login";
 
-export default function Page() {
+async function Page() {
 
   return (
     <div className="relative mx-auto max-w-md py-28 px-3">
@@ -22,8 +22,10 @@ export default function Page() {
             OR LOGIN WITH EMAIL
           </span>
         </div>
-        <FormLogin />
+        <Login />
       </div>
     </div>
   )
 }
+
+export default Page

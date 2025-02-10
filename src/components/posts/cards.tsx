@@ -3,8 +3,9 @@ import Link from "next/link";
 import { PostProps } from "@/types/auth";
 import UserCard from "./content/user";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
+import { Post } from "@/types/global";
 
-export default function Cards({ posts }: { posts: PostProps[] | null }) {
+export default function Cards({ posts }: { posts: Post[]}) {
 
   return (
     <>

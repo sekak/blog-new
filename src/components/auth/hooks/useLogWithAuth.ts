@@ -6,14 +6,14 @@ async function loginFetcher(url: string, { arg }: { arg: any }) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(arg), 
+    body: JSON.stringify(arg),
   });
   const data = await response.json();
   if (!response.ok) {
-    return {message: data?.message, status: response.status}
+    return { message: data?.message, status: response.status };
   }
 
-  return {data, status: 200}
+  return { data, status: 200 };
 }
 
 function useLogWithAuth() {

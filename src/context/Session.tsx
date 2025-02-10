@@ -1,44 +1,33 @@
-'use client'
-// import { createClient } from "@/utils/supabase/client"
-import { createContext, useContext, useEffect, useState } from "react"
+"use client";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ProviderProps } from "@/types/context";
-import { createClient } from "@/utils/supabase/client";
-
+import useSWR from "swr";
+import { fetcher } from "@/utils/utils";
 
 interface PropsSessionContext {
-    loading: boolean
-    setUser: React.Dispatch<React.SetStateAction<boolean>>
-    user: any
+  loading: boolean;
+  user: any;
 }
 
-export const SessionContext = createContext<PropsSessionContext | null>(null)
+export const SessionContext = createContext<PropsSessionContext | null>(null);
 
 export const useSessionContext = () => {
-    const context = useContext(SessionContext)
-    if (!context) throw new Error("Please use Context Theme inside layout.");
-
-    return context
-}
-
+  const context = useContext(SessionContext);
+  if (!context) throw new Error("Please use Context Theme inside layout.");
+  return context;
+};
 
 export const SessionProvider = ({ children }: ProviderProps) => {
-    const [user, setUser] = useState<any>()
-    const [loading, setLoading] = useState<boolean>(false);
+  // Move useSWR inside the component
+  const { data: user, isLoading } = useSWR('/api/users', fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  });
 
-    const supabase = createClient();
-    useEffect(() => {
-        const GetUser = async () => {
-            setLoading(true)
-            const { data: { user }, error } = await supabase.auth.getUser();
-            if (error)
-                setUser(null)
-            setUser(user)
-            setLoading(false)
-        }
-        GetUser()
-    }, [])
-    
-    return <SessionContext.Provider value={{ loading, user ,setUser}}>
-        {children}
+  return (
+    <SessionContext.Provider value={{ loading: isLoading, user }}>
+      {children}
     </SessionContext.Provider>
-}
+  );
+};

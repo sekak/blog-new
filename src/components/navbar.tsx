@@ -1,11 +1,9 @@
 'use client'
-import { logout } from "@/app/api/auth/action";
 import {
   Navbar as Nav, NavbarBrand, NavbarContent,
-  NavbarItem, Button, NavbarMenu, NavbarMenuItem,
+  NavbarItem, NavbarMenu, NavbarMenuItem,
   NavbarMenuToggle, DropdownMenu, DropdownTrigger,
   Dropdown, Avatar, DropdownItem,
-  Skeleton
 } from "@heroui/react";
 import { BookOpen, LogOut } from "lucide-react";
 import ModeToggle from "./mode-toggle";
@@ -23,8 +21,8 @@ const menuItems = [
 export default function Navbar() {
 
   const handleClickLogout = async () => {
-    await logout()
-    window.location.reload()
+    // await logout()
+    // window.location.reload()
   }
 
   const { data, isLoading } = useSWR(`/api/users`, fetcher);

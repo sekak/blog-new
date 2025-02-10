@@ -20,3 +20,18 @@ export interface CommentsProps{
   post_id: string
   user_id: string
 }
+
+
+export interface Post {
+  id: string;
+  title: string;
+  content: string;
+  user_id: string;
+  description: string
+  image: string
+}
+
+export interface PostResponse {
+  posts: Post[];
+  count: number;
+}

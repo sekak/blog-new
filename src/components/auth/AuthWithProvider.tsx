@@ -6,7 +6,7 @@ import useLogWithProvider from '@/components/auth/hooks/useLogWithProvider'
 
 export default function AuthWithProvider() {
   const [loadingProvider, setLoadingProvider] = React.useState<string | null>(null)
-  const { logWithProvider, error, isLoading } = useLogWithProvider()
+  const { logWithProvider, error } = useLogWithProvider()
 
   const handleClick = async (provider: string) => {
     setLoadingProvider(provider)

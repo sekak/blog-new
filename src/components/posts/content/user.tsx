@@ -18,9 +18,9 @@ export default function UserCard({ user_id }: { user_id: string }) {
                         className: "w-8 h-8"
                     }}
                     description={
-                        <Link isExternal href="https://x.com/jrgarciadev" className='text-[11px]'>
+                        <span className='text-[11px]'>
                             {data?.email}
-                        </Link>
+                        </span>
                     }
                     name={data?.name}
                 />

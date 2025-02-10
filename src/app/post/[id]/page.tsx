@@ -1,7 +1,4 @@
 'use server'
-import Comments from "@/components/comments/comments";
-import { Suspense, lazy } from "react";
-import SkeletonCard from "@/components/skeleton/skeleton";
 import PostComment from "@/components/posts/postComment";
 
 async function page({ params }: { params: { id: string } }) {

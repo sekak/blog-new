@@ -17,26 +17,26 @@ export default function Footer() {
               <h3 className="text-lg font-semibold mb-4">Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary">
+                  {/* <a href="#" className="text-muted-foreground hover:text-primary">
                     Terms of Service
-                  </a>
+                  </a> */}
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary">
+                  {/* <a href="#" className="text-muted-foreground hover:text-primary">
                     Privacy Policy
-                  </a>
+                  </a> */}
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Social</h3>
               <div className="flex space-x-4">
-                <a href="#" className="text-muted-foreground hover:text-primary">
+                {/* <a href="#" className="text-muted-foreground hover:text-primary">
                   <Github className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-muted-foreground hover:text-primary">
                   <Twitter className="h-6 w-6" />
-                </a>
+                </a> */}
               </div>
             </div>
           </div>

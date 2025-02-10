@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   const supabase = await createClient();
 
   try {
-    const { email, password, name} = await req.json();
+    const { email, password } = await req.json();
 
     if (!email) {
       return NextResponse.json(

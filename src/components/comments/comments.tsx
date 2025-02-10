@@ -5,9 +5,11 @@ import CommentList from "./comment-list";
 import useSWR, { mutate } from "swr";
 import Error from "next/error";
 import { CommentsProps } from "@/types/global";
+import { useSessionContext } from "@/context/Session";
 
 export default function Comments({ id }: { id: string }) {
-  const postId = id
+
+  const data_user = useSessionContext()
 
   const fetcher = async (url: string) => {
     const response = await fetch(url);
@@ -20,12 +22,8 @@ export default function Comments({ id }: { id: string }) {
     }
     return data
   }
+
   const { data, error, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher)
-  const { data: user } = useSWR('/api/users?', fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  });
 
   const sendData = async (url: string, { arg }: { arg: CommentsProps }) => {
     const response = await fetch(url, {
@@ -44,12 +42,12 @@ export default function Comments({ id }: { id: string }) {
       content: comment,
       author: "Anonymous",
       created_at: new Date().toISOString(),
-      post_id: postId,
-      user_id: user.id
+      post_id: id,
+      user_id: data_user?.user?.id
     };
 
-    await sendData(`/api/comments?post_id=${postId}`, { arg: newComment });
-    mutate(`/api/comments?post_id=${postId}`);
+    await sendData(`/api/comments?post_id=${id}`, { arg: newComment });
+    mutate(`/api/comments?post_id=${id}`);
   };
 
   return (
