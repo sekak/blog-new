@@ -6,7 +6,7 @@ import Comments from "../comments/comments";
 import Error from "next/error";
 import SkeletonComments from "../skeleton/skeleton_comments";
 import { Card, CardBody, CardHeader } from "@heroui/react";
-import UserCard from "./content/user";
+import UserCard from "./utils/user";
 
 
 export default function PostComment({ id }: { id: string }) {

@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import { ThemeProvider } from "@/components/theme-provider";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar/navbar";
 import { Theme } from "@radix-ui/themes";
 import Footer from "@/components/footer";
 import { SessionProvider } from "@/context/Session";

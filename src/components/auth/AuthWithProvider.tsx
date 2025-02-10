@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@heroui/react'
 import { Github, LogIn } from 'lucide-react'
 import React from 'react'

@@ -105,7 +105,7 @@ function FormAuth(props: FormProps) {
                     Submit
                 </Button>
             </div>
-            {props.isLogin ? <span className='flex items-center justify-center w-full text-sm font-light gap-1 mt-1'>Don`&apos;`t have an account?  <Link href='/signup' className='font-semibold '> Signup</Link></span> :
+            {props.isLogin ? <span className='flex items-center justify-center w-full text-sm font-light gap-1 mt-1'>Don&apos;t have an account?  <Link href='/signup' className='font-semibold '> Signup</Link></span> :
                 <span className='flex items-center justify-center w-full text-sm font-light gap-1 mt-1'>Already i have an account  <Link href='/login' className='font-semibold '> Login</Link></span>}
         </Form>
 

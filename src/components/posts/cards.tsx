@@ -1,24 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PostProps } from "@/types/auth";
-import UserCard from "./content/user";
+import UserCard from "./utils/user";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import { Post } from "@/types/global";
+import Picture from "./utils/image";
 
 export default function Cards({ posts }: { posts: Post[]}) {
-
+  if(!posts) return <h1>No Posts</h1>
   return (
     <>
       {posts?.map((post) => (
         <Card key={post.id} className="bg-background overflow-hidden max-w-[390px] max-h-[450px]" isPressable>
           <Link href={`/post/${post.id}`} className="w-full">
             <div className="relative h-48">
-              <Image
-                src={post.image}
-                alt="Med Blog"
-                className="object-cover"
-                fill
-              />
+              <Picture src={post.image} />
             </div>
             <div className="flex flex-col h-[250px] w-full p-4">
               <CardHeader className="flex-1 border-none">

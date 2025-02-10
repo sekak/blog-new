@@ -6,10 +6,11 @@ import {
   Dropdown, Avatar, DropdownItem,
 } from "@heroui/react";
 import { BookOpen, LogOut } from "lucide-react";
-import ModeToggle from "./mode-toggle";
+import ModeToggle from "../mode-toggle";
 import useSWR from "swr";
 import { fetcher } from "@/utils/utils";
 import Link from "next/link";
+import { useLogOut } from "./hooks/useLogOut";
 
 
 const menuItems = [
@@ -19,14 +20,22 @@ const menuItems = [
 ];
 
 export default function Navbar() {
-
-  const handleClickLogout = async () => {
-    // await logout()
-    // window.location.reload()
-  }
-
   const { data, isLoading } = useSWR(`/api/users`, fetcher);
+  const { logout, error } = useLogOut();
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      window.location.reload()
+      console.log("Logged out successfully!");
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error("Logout failed:", err.message);
+      } else {
+        console.error("Logout failed:", err);
+      }
+    }
+  };
   return (
     <Nav isBlurred className="gap-6" maxWidth={'xl'} isBordered>
       <NavbarBrand className="flex items-center">
@@ -80,7 +89,7 @@ export default function Navbar() {
                     <ModeToggle isLogged={true} />
                   </div>
                 </DropdownItem>
-                <DropdownItem key="logout" color="danger" onClick={handleClickLogout}>
+                <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                   <div className="flex items-center">
                     <LogOut className="text-foreground h-5 w-5 m-2" />
                     <p>Logout</p>

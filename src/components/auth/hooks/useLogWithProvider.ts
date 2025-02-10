@@ -1,13 +1,13 @@
+import { redirect } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 
 function useLogWithProvider() {
   const fetcher = async (key: string, { arg }: { arg: string }) => {
     const res = await fetch(`${key}/${arg}?provider=${arg}`);
-    const data = await res.json();
+    const data = await res.json();                    
+    if(res.ok)
+      redirect(data.url);
 
-    if (data?.url) {
-      window.location.href = data.url; 
-    }
     return data;
   };
 

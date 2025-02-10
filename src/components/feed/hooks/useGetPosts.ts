@@ -5,7 +5,6 @@ const fetcher = async (url: string, { arg }:{arg:number}): Promise<PostResponse>
   if (arg == null) throw new Error("Invalid argument: 'arg' is required");
 
   const urlWithParams = `${url}?index=${encodeURIComponent(arg)}`;
-  console.log("Fetching from:", urlWithParams);
 
   const res = await fetch(urlWithParams);
   const data = await res.json();
