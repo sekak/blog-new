@@ -9,6 +9,7 @@ import { useSessionContext } from "@/context/Session";
 
 export default function Comments({ id }: { id: string }) {
 
+  const [loading, setLoading] = React.useState(false);
   const data_user = useSessionContext()
 
   const fetcher = async (url: string) => {
@@ -38,6 +39,7 @@ export default function Comments({ id }: { id: string }) {
 
 
   const handleAddComment = async (comment: string) => {
+    setLoading(true);
     const newComment: CommentsProps = {
       content: comment,
       author: "Anonymous",
@@ -47,13 +49,14 @@ export default function Comments({ id }: { id: string }) {
     };
 
     await sendData(`/api/comments?post_id=${id}`, { arg: newComment });
+    setLoading(false);
     mutate(`/api/comments?post_id=${id}`);
   };
 
   return (
     <div className="mt-8 space-y-8">
-      <CommentForm handleAddComment={handleAddComment} />
-      <CommentList comments={data} />
+      <CommentForm handleAddComment={handleAddComment} loading={loading}/>
+      <CommentList comments={data} isLoading={isLoading}/>
     </div>
   );
 }

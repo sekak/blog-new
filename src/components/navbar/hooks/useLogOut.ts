@@ -19,5 +19,5 @@ export function useLogOut() {
     }
   };
 
-  return { logout, isLoading: isMutating, error };
+  return { logout, isLoading: isMutating, error, data };
 }

@@ -87,10 +87,9 @@ function FormAuth(props: FormProps) {
                     radius="sm"
                     type={isVisible ? "text" : "password"}
                     endContent={
-                        <button
-                            aria-label="toggle password visibility"
-                            className="focus:outline-none"
-                            type="button"
+                        <Button
+                            isIconOnly
+                            variant="light"
                             onClick={toggleVisibility}
                         >
                             {isVisible ? (
@@ -98,7 +97,7 @@ function FormAuth(props: FormProps) {
                             ) : (
                                 <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                             )}
-                        </button>
+                        </Button>
                     }
                 />
                 <Button isLoading={props.isLoading} className="w-full font-semibold" color="primary" type="submit" radius="sm">

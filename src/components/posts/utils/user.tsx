@@ -1,5 +1,5 @@
 import { fetcher } from '@/utils/utils';
-import { Link, Skeleton, User } from '@heroui/react';
+import { Skeleton, User } from '@heroui/react';
 import useSWR from 'swr';
 
 export default function UserCard({ user_id }: { user_id: string }) {

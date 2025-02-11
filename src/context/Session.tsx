@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { ProviderProps } from "@/types/context";
 import useSWR from "swr";
 import { fetcher } from "@/utils/utils";

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import UserCard from "./utils/user";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
