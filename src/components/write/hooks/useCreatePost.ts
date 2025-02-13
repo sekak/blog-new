@@ -1,6 +1,7 @@
+import { Post } from "@/types/global";
 import useSWRMutation from "swr/mutation";
 
-const fetcher = async (url: string, { arg }: { arg: any }) => {
+const fetcher = async (url: string, { arg }: { arg: Post }) => {
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -22,7 +23,7 @@ const useCreatePost = () => {
     fetcher
   );
 
-  return { createPost: trigger, data, error: error as Error | null, isLoading: isMutating };
+  return { createPost:(arg: Post) => trigger(arg), data, error: error as Error | null, isLoading: isMutating };
 };
 
 export default useCreatePost;

@@ -21,7 +21,7 @@ const menuItems = [
 
 export default function Navbar() {
   const { data, isLoading } = useSWR(`/api/users`, fetcher);
-  const { logout, error } = useLogOut();
+  const { logout } = useLogOut();
 
   const handleLogout = async () => {
     try {

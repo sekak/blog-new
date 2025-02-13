@@ -1,5 +1,5 @@
 'use server'
-import Feed from "@/components/feed/feed";
+import Posts from "@/components/posts/posts";
 
 export default async function page() {
   return (
@@ -9,7 +9,7 @@ export default async function page() {
         <p className="mt-5 text-lg text-justify">
           Discover stories, thinking, and expertise from writers on any topic.
         </p>
-        <Feed/>
+        <Posts/>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import useCreatePost from "./hooks/useCreatePost";
 import { Send } from "lucide-react";
 import { useSessionContext } from "@/context/Session";
 import { toast } from "react-toastify";
+import { Post } from "@/types/global";
 
 export default function Write() {
   const data_user = useSessionContext()
@@ -13,23 +14,21 @@ export default function Write() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    if(!data_user?.user) return;
     let formData = Object.fromEntries(new FormData(e.currentTarget));
     formData = { ...formData, user_id: data_user?.user?.id }
 
-    await createPost(formData)
-    
-   
+    await createPost(formData as unknown as Post)
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (error) {
       toast.error(error.message ?? "Something went wrong!");
     } else if (data) {
       toast.success("Post created successfully!");
       formRef.current?.reset();
     }
-  },[error,data])
+  }, [error, data])
 
   return (
     <Form className="flex flex-col gap-6" onSubmit={handleSubmit} ref={formRef}

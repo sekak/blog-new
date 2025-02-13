@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { ApiError, handleApiError } from "@/utils/errorHandler";
+import { PropsError } from "@/types/global";
 
 export async function POST(req: Request) {
   try {
@@ -24,6 +25,6 @@ export async function POST(req: Request) {
     );
   } catch (err) {
     console.log("Api error:", err);
-    return handleApiError(err);
+    return handleApiError(err as Error | PropsError);
   }
 }

@@ -89,8 +89,8 @@ function FormAuth(props: FormProps) {
                     endContent={
                         <Button
                             isIconOnly
-                            variant="light"
                             onClick={toggleVisibility}
+                            className='bg-transparent'
                         >
                             {isVisible ? (
                                 <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />

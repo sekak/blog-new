@@ -2,7 +2,28 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['plus.unsplash.com','images.unsplash.com','images.pexels.com','letsenhance.io','avatar.vercel.sh'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+      },
+      {
+        protocol: "https",
+        hostname: "letsenhance.io",
+      },
+      {
+        protocol: "https",
+        hostname: "avatar.vercel.sh",
+      },
+    ],
   },
 };
 

@@ -7,3 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export const fetcher = async (url: string) => fetch(url).then((res) => res.json());
+
+export const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    weekday: "long", 
+    day: "2-digit",
+    month: "long",  // Adds full month name (e.g., February)
+    year: "numeric",
+  });
+}

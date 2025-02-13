@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import CommentForm from "./comment-form";
 import CommentList from "./comment-list";
 import useSWR, { mutate } from "swr";
 import Error from "next/error";
-import { CommentsProps } from "@/types/global";
+import { CommentsProps, PropsError } from "@/types/global";
 import { useSessionContext } from "@/context/Session";
 
 export default function Comments({ id }: { id: string }) {
@@ -18,13 +18,13 @@ export default function Comments({ id }: { id: string }) {
 
     if (!response.ok) {
       const error = new Error(data.error || 'An error occurred while fetching the data.');
-      (error as any).status = response.status;
+      (error as unknown as PropsError).status = response.status;
       throw { error };
     }
     return data
   }
 
-  const { data, error, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher)
+  const { data, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher)
 
   const sendData = async (url: string, { arg }: { arg: CommentsProps }) => {
     const response = await fetch(url, {
@@ -40,6 +40,10 @@ export default function Comments({ id }: { id: string }) {
 
   const handleAddComment = async (comment: string) => {
     setLoading(true);
+    if (!data_user?.user) {
+      setLoading(false);
+      return;
+    }
     const newComment: CommentsProps = {
       content: comment,
       author: "Anonymous",

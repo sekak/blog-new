@@ -1,7 +1,8 @@
+import { PropsError } from '@/types/global'
 import React from 'react'
 
 interface ErrorProps {
-  error: any
+  error: PropsError
 }
 
 export default function Errors(props: ErrorProps) {

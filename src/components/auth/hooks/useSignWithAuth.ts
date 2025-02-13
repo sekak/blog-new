@@ -1,6 +1,7 @@
+import { DataForm } from "@/types/global";
 import useSWRMutation from "swr/mutation";
 
-async function signupFetcher(url: string, { arg }: { arg: any }) {
+async function signupFetcher(url: string, { arg }: { arg: DataForm }) {
   const response = await fetch(url, {
     method: "POST",
     headers: {

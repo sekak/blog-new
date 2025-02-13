@@ -11,7 +11,7 @@ export default function Login() {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const formData = Object.fromEntries(new FormData(e.currentTarget));
+        const formData = Object.fromEntries(new FormData(e.currentTarget)) as { email: string, password: string };
         if (formData)
             await logWithAuth(formData)
     }

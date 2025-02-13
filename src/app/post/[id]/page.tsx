@@ -1,11 +1,10 @@
 'use server'
-import PostComment from "@/components/posts/postComment";
+import Post from "@/components/post/post";
 
-async function page({ params }: { params: { id: string } }) {
-  const {id} = params
+async function page() {
   return (
     <div className="max-w-4xl mx-auto py-12 px-4">
-      <PostComment id={id}/>
+      <Post/>
     </div>
   );
 }

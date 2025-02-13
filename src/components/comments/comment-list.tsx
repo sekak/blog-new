@@ -1,7 +1,9 @@
-import { Loader2 } from "lucide-react";
+import { Clock, Loader2 } from "lucide-react";
 import { CommentsProps } from "@/types/global";
-import UserCard from "../posts/utils/user";
+import UserCard from "../post/utils/user";
 import { Card, CardBody, CardHeader } from "@heroui/react";
+import Hint from "../ui/hint";
+import { formatDate } from "@/utils/utils";
 
 interface PropsComment{
   comments: CommentsProps[];
@@ -21,8 +23,9 @@ const CommentList = (props:PropsComment) => {
       {props.comments?.map((comment) => (
         <Card key={comment.id} className="bg-background">
           <CardHeader className="pb-2">
-            <div className="flex items-center space-x-3">
+            <div className="flex justify-between w-full items-center space-x-3">
               <UserCard user_id={comment?.user_id} />
+              <Hint content={formatDate(comment?.created_at)} placement="top"><Clock className="text-sm text-gray-600 cursor-pointer" /></Hint>
             </div>
           </CardHeader>
           <CardBody>

@@ -9,14 +9,12 @@ import Link from 'next/link';
 
 export default function SignUp() {
   const [password, setPassword] = React.useState("");
-  const [email, setEmail] = React.useState("");
   const [sendEmail, setSendEmail] = React.useState(false);
   const { signUpWithAuth, data, isLoading, } = useSignUpWithAuth()
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
-    setEmail(formData.email as string)
+    const formData = Object.fromEntries(new FormData(e.currentTarget)) as { email: string, password: string };
     if (formData)
       await signUpWithAuth(formData)
   }

@@ -3,11 +3,13 @@ import { createContext, useContext } from "react";
 import { ProviderProps } from "@/types/context";
 import useSWR from "swr";
 import { fetcher } from "@/utils/utils";
+import { User } from "@supabase/supabase-js";
 
-interface PropsSessionContext {
+export interface PropsSessionContext {
   loading: boolean;
-  user: any;
+  user: User | null;
 }
+
 
 export const SessionContext = createContext<PropsSessionContext | null>(null);
 
