@@ -2,7 +2,7 @@
 import { Alert, Button, Form, Input, Textarea } from '@heroui/react'
 import { Send } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import { useSendEmail } from './hooks/useSendEmail'
+import { useSendEmail } from '@/components/contact/hooks/useSendEmail'
 import { PropsForm } from '@/types/global'
 
 export default function Contact() {

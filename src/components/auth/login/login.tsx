@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect } from 'react'
-import useLogWithAuth from '../hooks/useLogWithAuth';
+import useLogWithAuth from '@/components/auth/hooks/useLogWithAuth';
 import { toast } from 'react-toastify';
-import FormAuth from '../form';
+import FormAuth from '@/components/auth/form';
 
 
 export default function Login() {

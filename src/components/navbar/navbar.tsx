@@ -6,11 +6,11 @@ import {
   Dropdown, Avatar, DropdownItem,
 } from "@heroui/react";
 import { BookOpen, LogOut } from "lucide-react";
-import ModeToggle from "../mode-toggle";
+import ModeToggle from "@/components/mode-toggle";
 import useSWR from "swr";
 import { fetcher } from "@/utils/utils";
 import Link from "next/link";
-import { useLogOut } from "./hooks/useLogOut";
+import { useLogOut } from "@/components/navbar/hooks/useLogOut";
 
 
 const menuItems = [

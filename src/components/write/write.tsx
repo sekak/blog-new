@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from "react";
 import { Button, Form, Input, Textarea } from "@heroui/react";
-import useCreatePost from "./hooks/useCreatePost";
+import useCreatePost from "@/components/write/hooks/useCreatePost";
 import { Send } from "lucide-react";
 import { useSessionContext } from "@/context/Session";
 import { toast } from "react-toastify";

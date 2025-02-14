@@ -1,8 +1,8 @@
 import Link from "next/link";
-import UserCard from "./utils/user";
+import UserCard from "@/components/post/utils/user";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import { Post } from "@/types/global";
-import Picture from "./utils/image";
+import Picture from "@/components/post/utils/image";
 
 export default function Cards({ posts }: { posts: Post[]}) {
   if(!posts) return <h1>No Posts</h1>

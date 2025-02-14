@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import CommentForm from "./comment-form";
-import CommentList from "./comment-list";
+import CommentForm from "@/components/comments/comment-form";
+import CommentList from "@/components/comments/comment-list";
 import useSWR, { mutate } from "swr";
 import Error from "next/error";
 import { CommentsProps, PropsError } from "@/types/global";

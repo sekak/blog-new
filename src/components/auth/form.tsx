@@ -1,6 +1,6 @@
 import { Button, Form, Input } from '@heroui/react';
 import React from 'react'
-import { EyeFilledIcon, EyeSlashFilledIcon } from '../svg/eyeSlashFilled';
+import { EyeFilledIcon, EyeSlashFilledIcon } from '@/components/svg/eyeSlashFilled';
 import Link from 'next/link';
 
 

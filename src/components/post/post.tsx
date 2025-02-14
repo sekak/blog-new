@@ -1,16 +1,16 @@
 'use client'
 import Image from "next/image";
 import useSWR from "swr";
-import SkeletonCard from "../skeleton/skeleton";
-import Comments from "../comments/comments";
+import SkeletonCard from "@/components/skeleton/skeleton";
+import SkeletonComments from "@/components/skeleton/skeleton_comments";
+import Comments from "@/components/comments/comments";
+import UserCard from "@/components/post/utils/user";
 import Error from "next/error";
-import SkeletonComments from "../skeleton/skeleton_comments";
 import { Card, CardBody, CardHeader } from "@heroui/react";
-import UserCard from "./utils/user";
 import { PropsError } from "@/types/global";
 import { useState } from "react";
 import { Clock } from "lucide-react";
-import Hint from "../ui/hint";
+import Hint from "@/components/ui/hint";
 import { formatDate } from "@/utils/utils";
 
 

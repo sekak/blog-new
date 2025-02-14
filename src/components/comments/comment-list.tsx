@@ -1,8 +1,8 @@
 import { Clock, Loader2 } from "lucide-react";
 import { CommentsProps } from "@/types/global";
-import UserCard from "../post/utils/user";
+import UserCard from "@/components/post/utils/user";
 import { Card, CardBody, CardHeader } from "@heroui/react";
-import Hint from "../ui/hint";
+import Hint from "@/components/ui/hint";
 import { formatDate } from "@/utils/utils";
 
 interface PropsComment{

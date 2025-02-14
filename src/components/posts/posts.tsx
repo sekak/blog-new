@@ -1,9 +1,9 @@
 'use client'
 import { Pagination } from '@heroui/react'
 import React, { useEffect, useState } from 'react'
-import Cards from '../post/cards'
-import SkeletonCard from '../skeleton/skeleton'
-import { useGetPosts } from './hooks/useGetPosts'
+import Cards from '@/components/post/cards'
+import SkeletonCard from '@/components/skeleton/skeleton'
+import { useGetPosts } from '@/components/posts/hooks/useGetPosts'
 
 export default function Posts() {
   const [countPage, setCountPage] = useState<number>(1);

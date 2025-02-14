@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
-import FormAuth from '../form'
-import useSignUpWithAuth from '../hooks/useSignWithAuth';
+import FormAuth from '@/components/auth/form'
+import useSignUpWithAuth from '@/components/auth/hooks/useSignWithAuth';
 import { toast } from 'react-toastify';
 import { Button, Modal, ModalBody, ModalContent, ModalHeader } from '@heroui/react';
 import { Mail } from 'lucide-react';
