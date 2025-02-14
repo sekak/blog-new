@@ -3,6 +3,7 @@ import useSWRMutation from "swr/mutation";
 
 function useLogWithProvider() {
   const fetcher = async (key: string, { arg }: { arg: string }) => {
+    console.log("`${key}/${arg}?provider=${arg}`", `${key}/${arg}?provider=${arg}`);
     const res = await fetch(`${key}/${arg}?provider=${arg}`);
     const data = await res.json();                    
     if(res.ok)

@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const params = new URL(req.url);
   const provider = params.searchParams.get("provider") as 'google' | 'github' | null;
-
+  console.log(provider);
   if (!provider || !["github", "google"].includes(provider)) {
     return NextResponse.json({ message: "Invalid provider" }, { status: 400 });
   }
-
+  
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
