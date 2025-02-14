@@ -14,7 +14,7 @@ export default function ModeToggle(props: Props) {
     if (theme === "light") setTheme("dark");
     else setTheme("light");
   };
-  console.log(props.isLogged)
+  
   return (
       <Button
         onClick={handleClick}

@@ -26,7 +26,7 @@ export async function GET(req: Request) {
         picture: user?.user?.user_metadata?.picture,
         name: user?.user?.user_metadata?.name,
         created_at: user?.user?.created_at,
-      }
+      };
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -42,14 +42,14 @@ export async function GET(req: Request) {
     }
 
     const data = {
-        id: user?.user?.id,
-        email: user?.user?.email,
-        full_name: user?.user?.user_metadata?.full_name,
-        avatar_url: user?.user?.user_metadata?.avatar_url,
-        picture: user?.user?.user_metadata?.picture,
-        name: user?.user?.user_metadata?.name,
-        created_at: user?.user?.created_at,
-    }
+      id: user?.user?.id,
+      email: user?.user?.email,
+      full_name: user?.user?.user_metadata?.full_name,
+      avatar_url: user?.user?.user_metadata?.avatar_url,
+      picture: user?.user?.user_metadata?.picture,
+      name: user?.user?.user_metadata?.name,
+      created_at: user?.user?.created_at,
+    };
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("Unexpected error:", error);

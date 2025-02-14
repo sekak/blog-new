@@ -37,7 +37,6 @@ export default function Post() {
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   })
-  console.log(data)
 
   if (error && error.status != 200)
     return <Error statusCode={error?.status} />
