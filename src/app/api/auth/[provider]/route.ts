@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const params = new URL(req.url);
-  const provider = params.searchParams.get("provider") as 'google' | 'github' | null;
-  console.log(provider);
+  const provider = params.pathname.split("/")[3] as 'github' | 'google';
+
   if (!provider || !["github", "google"].includes(provider)) {
     return NextResponse.json({ message: "Invalid provider" }, { status: 400 });
   }
