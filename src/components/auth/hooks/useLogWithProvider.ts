@@ -1,23 +1,18 @@
-import { redirect } from "next/navigation";
-import useSWRMutation from "swr/mutation";
+import { createClient } from "@/utils/supabase/client";
 
-function useLogWithProvider() {
-  const fetcher = async (key: string, { arg }: { arg: string }) => {
-    console.log("`${key}/${arg}?provider=${arg}`", `${key}/${arg}?provider=${arg}`);
-    const res = await fetch(`${key}/${arg}?provider=${arg}`);
-    const data = await res.json();                    
-    if(res.ok)
-      redirect(data.url);
 
-    return data;
+const useLogWithProvider = () => {
+  const logWithProvider = async (provider: "google" | "github") => {
+    const supabase = createClient();
+     await supabase.auth.signInWithOAuth({
+      provider: provider,
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback`,
+      },
+    });
   };
 
-  const { trigger, data, error, isMutating } = useSWRMutation(
-    "/api/auth/",
-    fetcher
-  );
-
-  return { logWithProvider: (provider: string) => trigger(provider), data, error, isLoading: isMutating };
-}
+  return { logWithProvider };
+};
 
 export default useLogWithProvider;
