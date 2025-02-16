@@ -5,9 +5,9 @@ export async function GET(req: Request) {
   const params = new URL(req.url);
   const provider = params.pathname.split("/")[3] as 'github' | 'google';
 
-  if (!provider || !["github", "google"].includes(provider)) {
-    return NextResponse.json({ message: "Invalid provider" }, { status: 400 });
-  }
+  // if (!provider || !["github", "google"].includes(provider)) {
+  //   return NextResponse.json({ message: "Invalid provider" }, { status: 400 });
+  // }
   
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
