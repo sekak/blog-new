@@ -1,5 +1,6 @@
-import { createClient } from "@/utils/supabase/client";
+'use client'
 
+import { createClient } from "@/utils/supabase/client";
 
 const useLogWithProvider = () => {
   const logWithProvider = async (provider: "google" | "github") => {
