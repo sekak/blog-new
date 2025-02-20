@@ -3,9 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const supabase = await createClient();
+  
   const params = new URL(req.url).searchParams;
   const limit = parseInt(params.get("count") ?? "3");
   const index = parseInt(params.get("index") ?? "1");
+  
   const {
     data: posts,
     error,

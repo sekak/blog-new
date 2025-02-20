@@ -12,7 +12,7 @@ const fetcher = async (url: string): Promise<PostResponse> => {
   return data;
 };
 
-export function useGetPosts(index: number) {
+export function useGetPosts(index?: number) {
   const { data, error, isLoading } = useSWR(`/api/posts?index=${index}`, fetcher);
 
   return { data, error, isLoading };

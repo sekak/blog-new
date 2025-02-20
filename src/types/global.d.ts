@@ -59,3 +59,8 @@ export interface PropsForm {
   email: string;
   description: string;
 }
+
+export interface UserProps {
+  isProfile?: boolean;
+  user_id: string;
+}

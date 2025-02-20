@@ -2,7 +2,6 @@
 import { Button } from '@heroui/react'
 import { Github, LogIn } from 'lucide-react'
 import React from 'react'
-// import { toast } from 'react-toastify'
 import useLogWithProvider from '@/components/auth/hooks/useLogWithProvider'
 
 export default function AuthWithProvider() {
@@ -12,14 +11,6 @@ export default function AuthWithProvider() {
   const handleClick = async (provider: 'google' | 'github') => {
     setLoadingProvider(provider)
     logWithProvider(provider)
-    // if (error) {
-    //   toast.error(error.message)
-    //   setLoadingProvider('')
-    // }
-    // setTimeout(() => {
-    //   setLoadingProvider('')
-    // }
-    //   , 5000)
   }
 
   return (

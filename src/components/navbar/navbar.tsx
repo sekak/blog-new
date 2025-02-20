@@ -5,13 +5,12 @@ import {
   NavbarMenuToggle, DropdownMenu, DropdownTrigger,
   Dropdown, Avatar, DropdownItem,
 } from "@heroui/react";
-import { BookOpen, LogOut } from "lucide-react";
-import ModeToggle from "@/components/mode-toggle";
+import { BookOpen, Heart, Home, LogOut, SquarePlus, UserPen } from "lucide-react";
+import ModeToggle from "@/components/ui/mode-toggle";
 import useSWR from "swr";
 import { fetcher } from "@/utils/utils";
 import Link from "next/link";
 import { useLogOut } from "@/components/navbar/hooks/useLogOut";
-
 
 const menuItems = [
   "Home",
@@ -36,6 +35,11 @@ export default function Navbar() {
       }
     }
   };
+
+  const getPath = (name: string) => {
+    return `/${name.toLocaleLowerCase().replace(/[^a-z0-9]/g, '')}`;
+  }
+
   return (
     <Nav isBlurred className="gap-6" maxWidth={'xl'} isBordered>
       <NavbarBrand className="flex items-center">
@@ -48,21 +52,26 @@ export default function Navbar() {
       {data && !isLoading &&
         <NavbarContent className="hidden sm:flex gap-10" justify="center">
           <NavbarItem>
-            <Link color="foreground" href="/">
-              Home
+            <Link color="foreground" href="/" className="flex items-center gap-1">
+              <Home className="w-4 h-4"/> Home
             </Link>
           </NavbarItem>
           <NavbarItem >
-            <Link aria-current="page" href="/write">
-              Write
+            <Link aria-current="page" href="/write" className="flex items-center gap-1">
+              <SquarePlus className="w-4 h-4"/> Write
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="/contact">
-              Contact
+            <Link color="foreground" href="/contact" className="flex items-center gap-1">
+              <UserPen className="w-4 h-4"/> Contact
             </Link>
           </NavbarItem>
-        </NavbarContent> }
+          <NavbarItem>
+            <Link color="foreground" href={getPath(data?.name)} className="flex items-center gap-1">
+              <Heart className="w-4 h-4"/> Save
+            </Link>
+          </NavbarItem>
+        </NavbarContent>}
       <NavbarContent justify="end">
         {data &&
           <NavbarContent as="div" justify="end">

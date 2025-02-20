@@ -58,7 +58,7 @@ export default function Comments({ id }: { id: string }) {
   };
 
   return (
-    <div className="mt-8 space-y-8">
+    <div className="space-y-14">
       <CommentForm handleAddComment={handleAddComment} loading={loading}/>
       <CommentList comments={data} isLoading={isLoading}/>
     </div>

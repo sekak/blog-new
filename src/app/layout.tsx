@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeContextProvider } from "@/context/ThemeContext";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import Navbar from "@/components/navbar/navbar";
 import { Theme } from "@radix-ui/themes";
 import Footer from "@/components/footer";
@@ -40,7 +40,7 @@ export default function RootLayout({
                     theme={'dark'}
                   />                  
                   {children}
-                  <Footer />
+                  {/* <Footer /> */}
                 </div>
               </Theme>
             </ThemeProvider>

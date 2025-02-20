@@ -9,10 +9,8 @@ import Error from "next/error";
 import { Card, CardBody, CardHeader } from "@heroui/react";
 import { PropsError } from "@/types/global";
 import { useState } from "react";
-import { Clock } from "lucide-react";
-import Hint from "@/components/ui/hint";
 import { formatDate } from "@/utils/utils";
-
+import Items from '@/components/post/items'
 
 export default function Post() {
 
@@ -45,35 +43,34 @@ export default function Post() {
     <>
       {!isLoading ?
         <>
-          <Card className="overflow-hidden w-full bg-background">
+          <Items id={data?.user_id}/>
+          <Card className="overflow-hidden w-full bg-background mb-10">
             <div className="relative overflow-hidden  h-[400px]">
+              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10 hover:to-black/10"></div>
               {
                 data?.image ? <Image
                   src={img || data?.image}
                   alt="Med Blog"
-                  className="object-cover transition-all hover:scale-110"
+                  className="object-cover"
                   fill
                   onError={() => setImg(`https://avatar.vercel.sh/${data?.id}`)}
                 /> :
                   <Image
                     src={`https://avatar.vercel.sh/${data?.id}`}
                     alt="Med Blog"
-                    className="object-cover transition-all hover:scale-110"
+                    className="object-cover"
                     fill
                   />
               }
               <CardHeader className="absolute bottom-2">
-                <h3 className="text-3xl font-semibold">
+                <h3 className="text-3xl font-semibold text-white line-clamp-1 max-w-[80%]">
                   {data?.title}
                 </h3>
               </CardHeader>
             </div>
-            <CardBody className="flex flex-row justify-between">
-              <div className="mt-2">
-                <p className="text-base text-foreground mb-6">{data?.description}</p>
-                <UserCard user_id={data?.user_id} />
-              </div>
-              <span className="min-w-max flex items-end"><Hint content={formatDate(data?.created_at)} placement="top"><Clock className="text-sm text-gray-600 cursor-pointer" /></Hint></span>
+            <CardBody>
+              <p className="text-base text-foreground pt-2 pb-6">{data?.description}</p>
+              <span className="text-[12px] text-zinc-500 text-end">{formatDate(data?.created_at)}</span>
             </CardBody>
           </Card>
           <Comments id={id} />
