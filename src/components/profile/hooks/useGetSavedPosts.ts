@@ -4,7 +4,6 @@ export default function useFetchSavedPosts() {
   const fetcher = async (url: string, { arg }: { arg: {id: string, page: number} }) => {
     try {
       const response = await fetch(`${url}?id=${arg.id}&page=${arg.page}`);
-      if (!response.ok) throw new Error('Network response was not ok');
       return await response.json();
     } catch (error) {
       console.error("Fetch error:", error);

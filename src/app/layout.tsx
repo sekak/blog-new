@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import { ThemeContextProvider } from "@/context/ThemeContext";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import Navbar from "@/components/navbar/navbar";
-import { Theme } from "@radix-ui/themes";
-import Footer from "@/components/footer";
 import { SessionProvider } from "@/context/Session";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,29 +20,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeContextProvider>
+        <ThemeProvider
+        attribute="class" defaultTheme="purple-dark" themes={['light', 'dark', 'purple-dark']}>
           <SessionProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Theme>
-                <div className="bg-background">
-                  <Navbar />
-                  <ToastContainer
-                    className='mt-14'
-                    hideProgressBar={true}
-                    theme={'dark'}
-                  />                  
-                  {children}
-                  {/* <Footer /> */}
-                </div>
-              </Theme>
-            </ThemeProvider>
+            <ToastContainer
+              className='mt-14'
+              hideProgressBar={true}
+              theme={'dark'}
+            />
+            <Navbar />
+            {children}
           </SessionProvider>
-        </ThemeContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

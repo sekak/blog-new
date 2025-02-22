@@ -53,22 +53,22 @@ export default function Navbar() {
         <NavbarContent className="hidden sm:flex gap-10" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/" className="flex items-center gap-1">
-              <Home className="w-4 h-4"/> Home
+              <Home className="w-5 h-5"/>
             </Link>
           </NavbarItem>
           <NavbarItem >
             <Link aria-current="page" href="/write" className="flex items-center gap-1">
-              <SquarePlus className="w-4 h-4"/> Write
+              <SquarePlus className="w-5 h-5"/> 
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="/contact" className="flex items-center gap-1">
-              <UserPen className="w-4 h-4"/> Contact
+              <UserPen className="w-5 h-5"/>
             </Link>
           </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href={getPath(data?.name)} className="flex items-center gap-1">
-              <Heart className="w-4 h-4"/> Save
+              <Heart className="w-5 h-5"/> 
             </Link>
           </NavbarItem>
         </NavbarContent>}

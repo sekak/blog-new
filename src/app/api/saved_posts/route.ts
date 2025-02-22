@@ -24,6 +24,7 @@ export async function GET(req: Request) {
       .eq("user_id", id)
       .range(start, limit + start - 1).limit(limit)
       .order("saved_at", { ascending: false });
+      
     if (error)
       return NextResponse.json(
         { message: error.message, success: false },

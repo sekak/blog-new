@@ -33,7 +33,8 @@ export interface Post {
 
 export interface PostResponse {
   posts: Post[];
-  count: number;
+  empty: boolean;
+  success: boolean;
 }
 
 export interface PropsError {
@@ -52,6 +53,7 @@ export interface PostProps {
   image: string;
   user_id: string;
   created_at: string;
+  empty?: boolean;
 }
 
 export interface PropsForm {
@@ -63,4 +65,21 @@ export interface PropsForm {
 export interface UserProps {
   isProfile?: boolean;
   user_id: string;
+}
+
+export interface PropsSavedPosts {
+  id: string
+  post_id: string
+  user_id: string
+  saved_at: string
+  post: {
+    id: string
+    title: string
+    image: string
+    user_id: string
+    created_at: string
+    updated_at: string
+  }
+  board_id: string
+  board_name: string
 }
