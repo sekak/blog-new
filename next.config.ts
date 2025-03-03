@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "images.pexels.com",
+        hostname: "heroui.com",
       },
       {
         protocol: "https",
@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "avatar.vercel.sh",
       },
+      {
+        protocol:"https",
+        hostname:"i.pinimg.com"
+      }
     ],
   },
 };

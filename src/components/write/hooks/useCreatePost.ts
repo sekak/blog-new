@@ -19,7 +19,7 @@ const fetcher = async (url: string, { arg }: { arg: Post }) => {
 
 const useCreatePost = () => {
   const { trigger, data, error, isMutating } = useSWRMutation(
-    "/api/write",
+    "/api/post",
     fetcher
   );
 

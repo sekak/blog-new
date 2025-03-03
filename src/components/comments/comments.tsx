@@ -1,66 +1,39 @@
 "use client";
-import React from "react";
-import CommentForm from "@/components/comments/comment-form";
-import CommentList from "@/components/comments/comment-list";
-import useSWR, { mutate } from "swr";
-import Error from "next/error";
-import { CommentsProps, PropsError } from "@/types/global";
-import { useSessionContext } from "@/context/Session";
-
-export default function Comments({ id }: { id: string }) {
-
-  const [loading, setLoading] = React.useState(false);
-  const data_user = useSessionContext()
-
-  const fetcher = async (url: string) => {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (!response.ok) {
-      const error = new Error(data.error || 'An error occurred while fetching the data.');
-      (error as unknown as PropsError).status = response.status;
-      throw { error };
-    }
-    return data
-  }
-
-  const { data, isLoading } = useSWR(`/api/comments?post_id=${id}`, fetcher)
-
-  const sendData = async (url: string, { arg }: { arg: CommentsProps }) => {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(arg),
-    });
-    return response.json();
-  };
+import React, { useEffect } from "react";
+import { CommentsProps } from "@/types/global";
+import FormComment from "./form_comment";
+import ListComment from "./list_comment";
+import useGetComments from "./hooks/useGetComments";
 
 
-  const handleAddComment = async (comment: string) => {
-    setLoading(true);
-    if (!data_user?.user) {
-      setLoading(false);
-      return;
-    }
-    const newComment: CommentsProps = {
-      content: comment,
-      author: "Anonymous",
-      created_at: new Date().toISOString(),
-      post_id: id,
-      user_id: data_user?.user?.id
-    };
+interface PropsComment {
+  user_id: string;
+  post_id: string;
+}
 
-    await sendData(`/api/comments?post_id=${id}`, { arg: newComment });
-    setLoading(false);
-    mutate(`/api/comments?post_id=${id}`);
-  };
+export default function Comments(props: PropsComment) {
+
+  const { data, isLoading, getComments } = useGetComments();
+  const [comment, setComment] = React.useState<CommentsProps>();
+  const [comments, setComments] = React.useState<CommentsProps[]>([]);
+
+  useEffect(() => {
+    if (data && data.length > 0)
+      setComments(data)
+
+    if (comment)
+      setComments([comment, ...comments])
+
+  }, [data, comment])
+
+  useEffect(() => {
+    getComments(Number(props?.post_id))
+  }, [])
 
   return (
     <div className="space-y-14">
-      <CommentForm handleAddComment={handleAddComment} loading={loading}/>
-      <CommentList comments={data} isLoading={isLoading}/>
+      <FormComment count={comments?.length ?? 0} user_id={props?.user_id} post_id={props.post_id} setComment={setComment} />
+      <ListComment comments={comments ?? []} isLoading={isLoading} />
     </div>
   );
 }

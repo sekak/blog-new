@@ -1,54 +1,67 @@
 'use client'
-import Image from "next/image";
-import Comments from "@/components/comments/comments";
-import { Card, CardBody, CardHeader } from "@heroui/react";
-import { useState } from "react";
-import { formatDate } from "@/utils/utils";
-import { useSearchParams } from "next/navigation";
+
+import { usePathname, useSearchParams } from 'next/navigation'
+import React, { useEffect } from 'react'
+import UserCard from './utils/user'
+import { ArrowLeftIcon, Share } from 'lucide-react'
+import useGetPostById from './hook/useGetPostById'
+import Picture from './utils/image'
+import Comments from '../comments/comments'
+import { Post as PropsPost } from '@/types/global'
+import SaveIcon from '../save_post'
+import { TruncatedText } from '../ui/truncated-text'
 
 export default function Post() {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const user_id = pathname.split('/')[2]
+  const id = searchParams.get('id')
+  const [post, setPost] = React.useState<PropsPost | null>(null)
 
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id');
-  const title = searchParams.get('title');
-  const image = searchParams.get('image');
-  const user_id = searchParams.get('user_id');
-  const description = searchParams.get('description');
-  const created_at = searchParams.get('created_at');
-  const [img, setImg] = useState<string | null>(null);
+  const { getPostById, data } = useGetPostById()
+
+  useEffect(()=>{
+    if(data )
+      setPost(data)
+  }, [data,getPostById])
+
+  React.useEffect(() => {
+    getPostById(Number(id))
+  }, [id])
 
   return (
-    <>
-      <Card className="overflow-hidden w-full bg-background mb-10">
-        <div className="relative overflow-hidden  h-[400px]">
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10 hover:to-black/10"></div>
-          {
-            image ? <Image
-              src={img || image}
-              alt="Med Blog"
-              className="object-cover"
-              fill
-              onError={() => setImg(`https://avatar.vercel.sh/${id}`)}
-            /> :
-              <Image
-                src={`https://avatar.vercel.sh/${id}`}
-                alt="Med Blog"
-                className="object-cover"
-                fill
-              />
-          }
-          <CardHeader className="absolute bottom-2">
-            <h3 className="text-3xl font-semibold text-white line-clamp-1 max-w-[80%]">
-              {title}
-            </h3>
-          </CardHeader>
+    <div className="space-y-10">
+      {/* Header Section */}
+      <div className="flex w-full justify-between my-4">
+        <ArrowLeftIcon className="cursor-pointer" color="gray" />
+        <div className="flex gap-5">
+          <SaveIcon />
+          <Share className="cursor-pointer" color="gray" />
         </div>
-        <CardBody>
-          <p className="text-base text-foreground pt-2 pb-6">{description}</p>
-          <span className="text-[12px] text-zinc-500 text-end">{formatDate(created_at!)}</span>
-        </CardBody>
-      </Card>
-      <Comments id={id!} />
-    </>
+      </div>
+
+      {/* Post Title and User */}
+      <div className="space-y-6 py-4 border-b w-full">
+        <h1 className="font-bold text-4xl">
+          {post?.title}
+        </h1>
+        <UserCard user_id={user_id} />
+      </div>
+
+      {/* Post Image */}
+      <div className="relative">
+        <Picture src={post?.image ?? ''} />
+      </div>
+
+      {/* Post Content */}
+      <div className="space-y-4">
+        <p className="text-xl italic leading-8 w-full break-words">
+          <TruncatedText content={post?.description ?? ''} charLimit={300} />
+        </p>
+      </div>
+
+      {/* Comment Form */}
+      <Comments user_id={user_id} post_id={id!}/>
+    </div>
   )
 }

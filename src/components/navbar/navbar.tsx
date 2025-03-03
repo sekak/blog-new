@@ -41,12 +41,12 @@ export default function Navbar() {
   }
 
   return (
-    <Nav isBlurred className="gap-6" maxWidth={'xl'} isBordered>
+    <Nav isBlurred className="gap-6" maxWidth={'xl'} isBordered shouldHideOnScroll>
       <NavbarBrand className="flex items-center">
-        <NavbarMenuToggle className="sm:hidden p-2 mr-3" />
+        {data && <NavbarMenuToggle className="sm:hidden p-2 mr-3" />}
         <Link href="/" color="foreground" className="flex items-center">
-          <BookOpen className="mr-2 hidden sm:flex" />
-          Med Blog
+          <BookOpen className="mr-2" />
+          <p className="font-medium hidden sm:flex">Med_Blog</p>
         </Link>
       </NavbarBrand>
       {data && !isLoading &&
@@ -93,9 +93,9 @@ export default function Navbar() {
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-light">{data?.email}</p>
                 </DropdownItem>
-                <DropdownItem key='mode'>
+                <DropdownItem key="mode" className="py-3">
                   <div className="flex items-center">
-                    <ModeToggle isLogged={true} />
+                    <ModeToggle/>
                   </div>
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={handleLogout}>

@@ -1,8 +1,10 @@
-export interface CommentListProps {
-  id: string;
+export interface CommentsProps {
+  id?: string;
   author: string;
   content: string;
-  date: string;
+  created_at?: string;
+  post_id: string;
+  user_id: string;
 }
 
 export interface DataForm {
@@ -29,6 +31,7 @@ export interface Post {
   description: string;
   image: string;
   created_at: string;
+  post_saved: string[];
 }
 
 export interface PostResponse {
@@ -54,6 +57,7 @@ export interface PostProps {
   user_id: string;
   created_at: string;
   empty?: boolean;
+  post_saved: string[];
 }
 
 export interface PropsForm {
@@ -65,21 +69,4 @@ export interface PropsForm {
 export interface UserProps {
   isProfile?: boolean;
   user_id: string;
-}
-
-export interface PropsSavedPosts {
-  id: string
-  post_id: string
-  user_id: string
-  saved_at: string
-  post: {
-    id: string
-    title: string
-    image: string
-    user_id: string
-    created_at: string
-    updated_at: string
-  }
-  board_id: string
-  board_name: string
 }

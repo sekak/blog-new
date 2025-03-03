@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider
-        attribute="class" defaultTheme="purple-dark" themes={['light', 'dark', 'purple-dark']}>
+        attribute="class" defaultTheme="dark" themes={['light', 'dark', 'purple-dark']}>
           <SessionProvider>
             <ToastContainer
               className='mt-14'

@@ -4,11 +4,10 @@ import { useState } from "react"
 export default function Picture({ src }: { src: string }) {
 
     const [srcImage, setSrcImage] = useState<string>(src)
-    console.log(srcImage)
     return (
         <>
-            {srcImage ? <img
-                src={srcImage}
+            {src ? <img
+                src={src ?? srcImage}
                 alt="Med Blog"
                 className="rounded-2xl object-cover h-auto w-full max-h-[500px] min-h-[250px]"
                 onError={() => setSrcImage(`https://avatar.vercel.sh/5`)}

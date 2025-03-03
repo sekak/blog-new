@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { ZodSchemaMail } from "@/utils/zod";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -10,30 +11,30 @@ export async function POST(req: Request) {
     if (!user)
       return NextResponse.json({ message: "Unauthorized!", success: false });
 
-    const {name, email, description } = await req.json();
-    if (name === "" || email === "" || description === "")
-      return NextResponse.json({ message: "Invalid input", success: false });
+    const { data, success } = ZodSchemaMail.safeParse(await req.json());
 
+    if (!success)
+      return NextResponse.json({ message: "Invalid inputs", success: false }, { status: 400 });
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
         user: process.env.USER_EMAIL,
         pass: process.env.USER_PASSWORD,
-      }
+      },
     });
     try {
       const info = await transporter.sendMail({
         from: '"Med Blog 👻" <ahmadesekak@gmail.com>',
-        to: email,
+        to: data.email,
         subject: "Contact Us",
-        text: description, 
-        html: `<b>${description}</b>`,
+        text: data.description,
+        html: `<b>${data.description}</b>`,
       });
-      console.log("nodemailer", info.messageId);
-      return NextResponse.json({ message: "success", success: true });
+
+      return NextResponse.json({ message: "Email sent", success: true }, { status: 200 });
     } catch (err) {
       console.log("nodemailer", err);
-      return NextResponse.json({ message: "error", success: false });
+      return NextResponse.json({ message: "Failed to send email", success: false }, { status: 500 });
     }
   }
 }
