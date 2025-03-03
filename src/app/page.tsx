@@ -1,5 +1,6 @@
 'use server'
 import Posts from "@/components/posts/posts";
+import ListPosts from "@/components/reusable/posts";
 
 export default async function page() {
   return (
@@ -9,7 +10,7 @@ export default async function page() {
         <p className="mt-5 text-lg text-justify">
           Discover stories, thinking, and expertise from writers on any topic.
         </p>
-        <Posts/>
+        <ListPosts filter="all"/>
       </div>
     </div>
   );
