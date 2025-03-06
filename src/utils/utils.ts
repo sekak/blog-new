@@ -18,7 +18,7 @@ export const formatDate = (date: string) => {
 };
 
 export const breakpointCols = {
-  default: 5,
+  default: 4,
   1100: 4,
   900: 3,
   700: 2,

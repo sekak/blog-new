@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import useFetchPostsByType from "./useFetchPostsByType";
 
 export const useGetData = (filter: string) => {
-  const { isLoading, data, getPosts } = useFetchPostsByType();
+  const { isLoading, data, getPosts, error } = useFetchPostsByType();
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [page, setPage] = useState(1);
   const { inView, ref } = useInView();
@@ -24,16 +24,14 @@ export const useGetData = (filter: string) => {
     }
   }, [data, page]);
 
-  // fetch frst four items
   useEffect(() => {
     if (user?.id) getPosts({ page: page, user_id: user?.id, type: filter });
   }, [user?.id]);
 
-  // fetch more items
   const fetchMorePosts = useCallback(() => {
     if (user?.id && inView && !isLoading) {
-      if (data?.empty && data?.empty) return;
       const nextPage = page + 1;
+      if (data?.empty) return;
       getPosts({ page: nextPage, user_id: user?.id, type: filter });
       setPage(nextPage);
     }
@@ -57,5 +55,6 @@ export const useGetData = (filter: string) => {
     setAppearContent,
     user,
     fetchMorePosts,
+    error,
   };
 };

@@ -1,9 +1,6 @@
 import React from 'react'
+import ListPosts from '../reusable/posts'
 
 export default function Created() {
-  return (
-    <div>
-        Created   
-    </div>
-  )
+  return <ListPosts filter='created' />
 }

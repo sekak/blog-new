@@ -1,13 +1,13 @@
 'use client'
+
 import React from 'react'
-import { Heart, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import Masonry from 'react-masonry-css'
-import Picture from '@/components/post/utils/image'
-import Link from 'next/link'
 import { breakpointCols } from '@/utils/utils'
 import { useGetData } from './hooks/useGetData'
+import Link from 'next/link'
 
-export default function ListPosts({filter}: {filter: string}) {
+export default function ListPosts({ filter }: { filter: string }) {
 
   const { isLoading,
     posts,
@@ -15,7 +15,10 @@ export default function ListPosts({filter}: {filter: string}) {
     appearContent,
     setAppearContent,
     user,
+    error
   } = useGetData(filter);
+
+  if (error) return <div className='flex justify-center items-center h-[500px] text-lg font-light'>{error.info.error}</div>
 
   return (
     <div className='max-w-[1200px] mx-auto mt-20'>
@@ -26,15 +29,18 @@ export default function ListPosts({filter}: {filter: string}) {
       >
         {
           posts?.map((post, index: number) => (
-            <div key={post.id || index} className="relative w-full mb-4 break-inside-auto transition-all min-w-[200px]"
+            <div key={post.id || index} className="relative w-full mb-4 break-inside-auto transition-all"
               onMouseEnter={() => setAppearContent(index)}
               onMouseLeave={() => setAppearContent(-1)}>
-              <Picture src={post?.image} />
+              <img
+                src={post?.image || 'https://avatar.vercel.sh/5'}
+                alt="Med Blog"
+                className="rounded-2xl object-cover h-auto w-full"
+              />
               {appearContent === index && (
                 <div className="absolute w-full h-full top-0 left-0">
                   <div className="flex flex-col justify-between h-full rounded-2xl bg-black bg-opacity-20">
-                    <div className="flex-2 flex justify-end items-start p-4">
-                      <Heart />
+                    <div className="flex-2 flex justify-end items-start p-4 cursor-pointer">
                     </div>
                     <Link href={`/post/${user?.id}?id=${post.id}`}
                       className="bg-gradient-to-t from-black to-transparent z-10 rounded-2xl flex-1 p-4 flex flex-col justify-end">

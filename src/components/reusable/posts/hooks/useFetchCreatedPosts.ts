@@ -8,17 +8,17 @@ interface Props {
 }
 
 interface FetchError extends Error {
-  info: {
-    error?: string;
-    status?: number;
-    message?: string;
-    empty?: boolean
-    success?: boolean
-  };
-  status: number;
+    info: {
+      error?: string;
+      status?: number;
+      message?: string;
+      empty?: boolean
+      success?: boolean
+    };
+    status: number;
 }
 
-export default function useFetchPostsByType() {
+export default function useFetchCreatedPosts() {
   const fetcher = async ( url: string, { arg }: { arg: Props }): Promise<PostResponse> => {
     
     const response = await fetch(`${url}?page=${arg.page}&user_id=${arg.user_id}&type=${arg.type}`);
@@ -41,5 +41,5 @@ export default function useFetchPostsByType() {
     }
   );
 
-  return { getPosts: trigger, data, error, isLoading: isMutating };
+  return { getCreatedPosts: trigger, data, error, isLoading: isMutating };
 }

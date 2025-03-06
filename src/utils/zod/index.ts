@@ -27,6 +27,12 @@ export const ZodSchemaMail = z.object({
 
 export const ZodSchemaPost = z.object({
     title: z.string().nonempty(),
-    content: z.string().nonempty(),
+    user_id: z.string().nonempty(),
+    description: z.string().nonempty(),
     image: z.string().nonempty(),
+})
+
+export const ZodSchemaPutPost = z.object({
+    user_id: z.string().nonempty(),
+    post_id: z.number().int(),
 })

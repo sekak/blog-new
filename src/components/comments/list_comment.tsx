@@ -1,6 +1,6 @@
 import React from 'react'
 import { TruncatedText } from '../ui/truncated-text'
-import UserCard from '../post/utils/user'
+import UserCard from '../../utils/user'
 import { CommentsProps } from '@/types/global';
 import SkeletonComments from '../skeleton/comments';
 

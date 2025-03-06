@@ -32,6 +32,7 @@ export interface Post {
   image: string;
   created_at: string;
   post_saved: string[];
+  save?:boolean
 }
 
 export interface PostResponse {

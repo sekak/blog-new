@@ -44,7 +44,6 @@ export default function App() {
   const { theme, setTheme } = useTheme();
 
   const handleChange = () => {
-    console.log('theme', theme);
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 

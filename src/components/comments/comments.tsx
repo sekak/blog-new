@@ -9,6 +9,7 @@ import useGetComments from "./hooks/useGetComments";
 interface PropsComment {
   user_id: string;
   post_id: string;
+  isLoading: boolean;
 }
 
 export default function Comments(props: PropsComment) {
@@ -32,7 +33,7 @@ export default function Comments(props: PropsComment) {
 
   return (
     <div className="space-y-14">
-      <FormComment count={comments?.length ?? 0} user_id={props?.user_id} post_id={props.post_id} setComment={setComment} />
+      {!props.isLoading && <FormComment count={comments?.length ?? 0} user_id={props?.user_id} post_id={props.post_id} setComment={setComment} />}
       <ListComment comments={comments ?? []} isLoading={isLoading} />
     </div>
   );

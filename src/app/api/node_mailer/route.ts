@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       },
     });
     try {
-      const info = await transporter.sendMail({
+      await transporter.sendMail({
         from: '"Med Blog 👻" <ahmadesekak@gmail.com>',
         to: data.email,
         subject: "Contact Us",
