@@ -3,12 +3,12 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import useGetPostById from "./hook/useGetPostById";
-import Comments from "../comments/comments";
-import SkeletonPost from "../skeleton/post";
+import Comments from "@/components/comments/comments";
+import SkeletonPost from "@/components/skeleton/post";
 import Header from "./header";
-import PostTitle from "./post_title";
-import PostImage from "./post_img";
-import PostDescription from "./post_description";
+import PostTitle from "@/components/post/post_title";
+import PostImage from "@/components/post/post_img";
+import PostDescription from "@/components/post/post_description";
 
 export default function Post() {
   const searchParams = useSearchParams();

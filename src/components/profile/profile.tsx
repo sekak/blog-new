@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useSessionContext } from '@/context/Session';
 import Created from '@/components/profile/created';
-import ListPosts from '../reusable/posts';
+import ListPosts from '@/components/reusable/posts';
 import UserCard from '@/utils/user';
 
 export default function Profile() {

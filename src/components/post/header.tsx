@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, Share } from "lucide-react";
-import SaveIcon from "../save_post";
+import SaveIcon from "@/components/save_post";
 
 function Header({ post }: { post: { id: string; save: boolean; }; }) {
   return (

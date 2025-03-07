@@ -1,4 +1,4 @@
-import { TruncatedText } from "../ui/truncated-text";
+import { TruncatedText } from "@/components/ui/truncated-text";
 
 function PostDescription({ post }: { post: { description: string; }; }) {
   return (
