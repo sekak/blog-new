@@ -1,11 +1,11 @@
 'use client'
-import UserCard from '@/utils/user'
 import { Button, Tab, Tabs } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useSessionContext } from '@/context/Session';
 import Created from '@/components/profile/created';
 import ListPosts from '../reusable/posts';
+import UserCard from '@/utils/user';
 
 export default function Profile() {
   const Router = useRouter()

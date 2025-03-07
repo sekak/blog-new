@@ -18,7 +18,7 @@ export default function UserCard(props: UserProps) {
                                 src: data?.avatar_url
                                     ? data?.avatar_url
                                     : `https://avatar.vercel.sh/${data?.full_name}`,
-                                className: "w-28 h-28"
+                                className: "w-24 h-24"
                             }}
                             name={
                                 <span className='text-2xl font-bold'>{data?.name}</span>
@@ -26,9 +26,9 @@ export default function UserCard(props: UserProps) {
 
                         />
                         :
-                        <div className='flex flex-col items-center justify-center space-y-2'>
-                            <Skeleton className='rounded-full w-24 h-24' />
-                            <div className='flex flex-col items-center justify-center space-y-2'>
+                        <div className='min-h-52'>
+                            <Skeleton style={{width:"96px", height:"96px", borderRadius:"50%"}} />
+                            <div className='flex flex-col items-center justify-center space-y-2 mt-2'>
                                 <Skeleton className='w-24 h-4 rounded-md' />
                                 <Skeleton className='w-12 h-3 rounded-md' />
                             </div>
